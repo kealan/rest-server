@@ -18,7 +18,7 @@
 #define MAXPAYLOADSIZE 500
 #define MAXDATASIZE 1000
 #define MAXVALUESIZE 100
-#define MAXMESSAGESIZE 100
+#define MAXMESSAGESIZE 1100
 
 const char* server="server-name";
 
@@ -199,11 +199,11 @@ void logger(char* tag, char* message, char* client_ip)
 
     if (client_ip)
     {
-        (void)snprintf(buffer,MAXDATASIZE,"[%s]\t%s\t%s\t%d\t%s\t%s", tag, ctime_str, SERVICE, getpid(), client_ip, message);
+        (void)snprintf(buffer,sizeof(buffer),"[%s]\t%s\t%s\t%d\t%s\t%s", tag, ctime_str, SERVICE, getpid(), client_ip, message);
     }
     else
     {
-        (void)snprintf(buffer,MAXDATASIZE,"[%s]\t%s\t%s\t%d\t%s", tag, ctime_str, SERVICE, getpid(), message);
+        (void)snprintf(buffer,sizeof(buffer),"[%s]\t%s\t%s\t%d\t%s", tag, ctime_str, SERVICE, getpid(), message);
     }
 
     printf("%s\n",buffer);
@@ -312,50 +312,50 @@ void handler(int sock, char* client_ip)
     bzero(buf,MAXDATASIZE);
     if (serverError)
     {
-        dataLen = snprintf(data,MAXPAYLOADSIZE,"{\"message\": \"Internal Server Error\",\"service\": \"%s\", \"version\": \"%s\"}\n",SERVICE, VERSION);
+        dataLen = snprintf(data,sizeof(data),"{\"message\": \"Internal Server Error\",\"service\": \"%s\", \"version\": \"%s\"}\n",SERVICE, VERSION);
         /* Header + a blank line + data*/
-        len = snprintf(buf,MAXDATASIZE,"HTTP/1.1 500 Internal Server Error\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
+        len = snprintf(buf,sizeof(buf),"HTTP/1.1 500 Internal Server Error\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
         serverError=0;
     }
     else if (clientError)
     {
-        dataLen = snprintf(data,MAXPAYLOADSIZE,"{\"message\": \"%s\",\"service\": \"%s\", \"version\": \"%s\"}\n",message, SERVICE, VERSION);
+        dataLen = snprintf(data,sizeof(data),"{\"message\": \"%s\",\"service\": \"%s\", \"version\": \"%s\"}\n",message, SERVICE, VERSION);
         /* Header + a blank line + data*/
-        len = snprintf(buf,MAXDATASIZE,"HTTP/1.1 400 Bad Request\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
+        len = snprintf(buf,sizeof(buf),"HTTP/1.1 400 Bad Request\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
         clientError=0;
     }
     else if (matchStatus)
     {
-        dataLen = snprintf(data,MAXPAYLOADSIZE,"{\"message\": \"OK\",\"service\": \"%s\", \"version\": \"%s\"}\n",SERVICE, VERSION);
+        dataLen = snprintf(data,sizeof(data),"{\"message\": \"OK\",\"service\": \"%s\", \"version\": \"%s\"}\n",SERVICE, VERSION);
         /* Header + a blank line + data*/
-        len = snprintf(buf,MAXDATASIZE,"HTTP/1.1 200 OK\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
+        len = snprintf(buf,sizeof(buf),"HTTP/1.1 200 OK\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
     }
     else if (matchData)
     {
-        dataLen = snprintf(data,MAXPAYLOADSIZE,"{\"message\": \"OK\",\"user\": \"%s\",\"email\": \"%s\",\"service\": \"%s\", \"version\": \"%s\"}\n",value1,value2,SERVICE, VERSION);
+        dataLen = snprintf(data,sizeof(data),"{\"message\": \"OK\",\"user\": \"%s\",\"email\": \"%s\",\"service\": \"%s\", \"version\": \"%s\"}\n",value1,value2,SERVICE, VERSION);
         /* Header + a blank line + data*/
-        len = snprintf(buf,MAXDATASIZE,"HTTP/1.1 200 OK\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
+        len = snprintf(buf,sizeof(buf),"HTTP/1.1 200 OK\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
     }
     else
     {
         dataLen = snprintf(data,MAXPAYLOADSIZE,"{\"message\": \"Bad Request\",\"service\": \"%s\", \"version\": \"%s\"}\n",SERVICE, VERSION);
         /* Header + a blank line + data*/
-        len = snprintf(buf,MAXDATASIZE,"HTTP/1.1 400 Bad Request\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
+        len = snprintf(buf,sizeof(buf),"HTTP/1.1 400 Bad Request\nContent-Type: application/json\nContent-Length: %d\nServer: %s\nDate: %s\n\n%s", dataLen, server, ctime_str, data);
     }
 
 
     // Send data
     if ((n2 = send(sock, buf, len, 0)) == -1)
     {
-        sprintf(message, "%s\tSending data failed", uri);
+        snprintf(message, sizeof(message), "%s\tSending data failed", uri);
         logger("ERROR", message, client_ip);
         perror("send");
     }
 
-    snprintf(message, MAXPAYLOADSIZE,  "%s\t%s", uri, data);
+    snprintf(message, sizeof(message),  "%s\t%s", uri, data);
     logger("INFO", message, client_ip);
 #ifdef DEBUG
-    sprintf(message, "%s\tnBytes sent: %d data sent: %s",uri, n2, buf);
+    snprintf(message, sizeof(message), "%s\tnBytes sent: %d data sent: %s",uri, n2, buf);
     logger("DEBUG", message, client_ip);
     bzero(message,MAXMESSAGESIZE);
 #endif
