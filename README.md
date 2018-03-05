@@ -1,6 +1,6 @@
-# server
+# Simple RESTful web server
 
-[![Build Status](https://travis-ci.org/kealan/server.svg?branch=master)](https://travis-ci.org/kealan/server)
+[![Build Status](https://travis-ci.org/kealan/rest-server.svg?branch=master)](https://travis-ci.org/kealan/rest-server)
 
 # Quick start
 

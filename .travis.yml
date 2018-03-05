@@ -1,0 +1,26 @@
+language: c
+compiler: gcc
+sudo: true
+dist: trusty
+services:
+- docker
+jobs:
+  include:
+  - stage: build docker image
+    script:
+    - export VERSION=$(cat VERSION)
+    - make
+    - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+    - docker build -t rest-server .
+    - docker images
+    - docker tag server-demo $DOCKER_USERNAME/rest-server:$VERSION
+    - docker push $DOCKER_USERNAME/rest-server:$VERSION
+  - stage: test
+    script:
+    - export VERSION=$(cat VERSION)
+    - docker-compose --version
+    - "./test.sh"
+env:
+  global:
+  - secure: n543+YxOGgl0oAgWl4aJNQIAMplolW665KeTWhwhcE21BVSYgyJ3HZspcK7pFzLcmv7pp1mSMiAnsddHvKZCuV+AGO0HkinvHL+0nadDtz2+cxerDItmF8oknHAkxXEdwbryVo+Lu0flx2pkbOp4WQpPrP+rD/149I1xf8MR/Gj3x+bok5TtFcdJjzbL7EO+qt5EHVn68JU29XzSGxwPnPGeunjrtbRmMjroyLnzbywASLeTvRtjaB8Wj0sMPe8idFWId3WfKyjVjsyDdx483AdVNDuMZYxXbdrkw8LJFigGAGhmXqmnecQM9ORZfj/JK1nU3ShlOlMUVTkjdRHZAPJNvtWZYymg0NR3sNnDiqc9CROMjg3j9CmWKPabgNUAfzddpkAEDSDPCyp9SURQsHUegnaxU1wRS5zSH+HrZHwX+GeoRULejSgDYjO/uB56QZpUXFRGhHluHxsuoBJKJRWXlzCuoHdi8MvmwQaGzdN3VBpRkgCiKOxmd6t+r/fdkxf+MHs7PPAHUx2XANKmDQj8/McsVGlT2YCU/ht26YyBcr2jcphGCbOk3HokkfzKdeww+NZSOzBDOoZkwn9wyScOPvdk359XOo1julX7Xiqj199SmKCQGUX4e3MnTO671mEIDmserONf+QgHvjf6BSEzQykoZO4S8kkeheGE/B4=
+  - secure: XI/8hy+b7r0jyMGfqZisxJw71Gk2lx24zg0Pak5sBsSndA/0BXMUATBfHBAYqs7YI7W0XNXid978tndv18NFG7JSlr80gQZ1VEWaYE+0uGRbP0j6p00yLqHrb5zC64TVYLU9BKzKLGqZi+ky1iMDJZQBdJ5PUaFBCavEAa98ZK6cL2h30sR7ZiNOh5mF2zpw3rV8CkdS9d9emvNGt3GsRZ2UPJT0/EC1Sk7PnPr31nW4yLPdpmEmky7vnsOUHAP1tqhE/wXPFYzmeF2BHVpYr3lExwmf//8ZcMCtLgHR/g6lSmG1xRG7Cbye/nRCkEBajovxlrWOj9XhF0dm+xg0Dl0cyXnFj02vlSv7bd/fJyX+air6EdO5B/K3h5vFyhgRXqY5X7QkzDLBSlrDzLw5k0PdInP+N9iqWuph09JeBF2guONlus0RgG01h7eAm94hr+JVBkSetwez8WWWQYvsGaSNJIlE+Va0yTcoYyt/iZmjZyE+QWH60xItPcIbEohOAXLwG1HI4SKcONqSLhqhDj2522vy0DpCoTiykajdI8yfJqftxDv1udgEXBaOLwXKrGMQoAOdSEN6v0S4W9MjVEy1rrOCRYmOvp+EhxHDtNjUSFZ802tjhF4wuyuViNAvzBnhze7YY9YveuYUUHVgbugJm7KgU8ElHtWUI6JzUOE=
