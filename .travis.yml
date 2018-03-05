@@ -10,7 +10,6 @@ jobs:
     script:
     - export VERSION=$(cat VERSION)
     - ./build.sh -s Release
-    - ls 
     - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
     - docker build -t rest-server .
     - docker images
