@@ -1,0 +1,2 @@
+const char* VERSION = "@VERSION@";  /**< Current version */
+const char* SERVICE = "@SERVICE@";  /**< Service name */

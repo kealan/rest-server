@@ -11,6 +11,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <time.h>
+#include "config.h"
 
 #define PORT "8000"
 #define BACKLOG 10

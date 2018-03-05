@@ -9,7 +9,7 @@ jobs:
   - stage: build docker image
     script:
     - export VERSION=$(cat VERSION)
-    - make
+    - ./build.sh -s Release
     - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
     - docker build -t rest-server .
     - docker images
