@@ -13,7 +13,7 @@ jobs:
     - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
     - docker build -t rest-server .
     - docker images
-    - docker tag server-demo $DOCKER_USERNAME/rest-server:$VERSION
+    - docker tag rest-server $DOCKER_USERNAME/rest-server:$VERSION
     - docker push $DOCKER_USERNAME/rest-server:$VERSION
   - stage: test
     script:
