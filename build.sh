@@ -49,9 +49,10 @@ function build_server()
   cd target/$BUILD_TYPE
   cmake -D SERVICE=test -D CMAKE_BUILD_TYPE=$BUILD_TYPE -D CMAKE_INSTALL_PREFIX=${CURRENTDIR}/build/$BUILD_TYPE ../..
   make 
-  cp ./src/main $CURRENTDIR
   # make test
   make install
+  echo "cp ${CURRENTDIR}/build/$BUILD_TYPE/bin/main ${CURRENTDIR}"
+  cp ${CURRENTDIR}/build/$BUILD_TYPE/bin/main ${CURRENTDIR}
 }
 
 
