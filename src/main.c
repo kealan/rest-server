@@ -352,7 +352,7 @@ void handler(int sock, char* client_ip)
         perror("send");
     }
 
-    sprintf(message, "%s\t%s", uri, data);
+    snprintf(message, MAXPAYLOADSIZE,  "%s\t%s", uri, data);
     logger("INFO", message, client_ip);
 #ifdef DEBUG
     sprintf(message, "%s\tnBytes sent: %d data sent: %s",uri, n2, buf);
