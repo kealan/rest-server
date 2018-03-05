@@ -34,7 +34,7 @@ fi
 
 function delete_files()
 {
-  echo "clean"
+  echo "Cleanup"
   rm -rf build
   rm -rf target
   rm -rf main
@@ -42,7 +42,7 @@ function delete_files()
 
 function build_server()
 {
-  echo "SAKKE"
+  echo "Build Server"
   cd $CURRENTDIR
   rm -rf target/$BUILD_TYPE
   mkdir -p target/$BUILD_TYPE
@@ -65,6 +65,7 @@ do
              ;;
          s)
              BUILD_TYPE=$OPTARG
+             delete_files
              build_server
              ;;
          d)

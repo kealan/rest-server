@@ -1,22 +1,3 @@
-"""
-Copyright 2014 CertiVox UK Ltd, All Rights Reserved.
-
-The CertiVox M-Pin Client and Server Libraries are free software: you can
-redistribute it and/or modify it under the terms of the BSD 3-Clause
-License - http://opensource.org/licenses/BSD-3-Clause
-
-For full details regarding our CertiVox terms of service please refer to
-the following links:
-
-  * Our Terms and Conditions -
-    http://www.miracl.com/about-miracl/terms-and-conditions/
-
-  * Our Security and Privacy -
-    http://www.miracl.com/about-miracl/security-privacy/
-
-  * Our Statement of Position and Our Promise on Software Patents -
-    http://www.miracl.com/about-miracl/patents/
-"""
 import re
 import json
 import httplib
