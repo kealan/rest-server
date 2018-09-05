@@ -26,7 +26,7 @@ As part of the CI the server docker image is written to Docker hub
 
 Run the container
 
-    docker run -it --rm -p 8000:8000 kealan/rest-server:$(cat VERSION)
+    docker run --rm -p 8000:8000 kealan/rest-server:$(cat VERSION)
 
 Call the service
 
