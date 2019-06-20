@@ -9,12 +9,18 @@ It is a template upon which more complicated services can be developed.
 
 Install travis cli
 
-    gem install travis
+```
+sudo apt-get install -y ruby ruby-dev
+sudo gem install travis
+gem install travis
+cd /var/lib/gems/
+sudo chmod -R 755 ./
+```
 
 Add your secure environmental values.
 
-    travis encrypt DOCKER_USERNAME=username --add
-    travis encrypt DOCKER_PASSWORD=password --add
+    /var/lib/gems/2.5.0/gems/travis-1.8.10/bin/travis encrypt DOCKER_USERNAME=username --add
+    /var/lib/gems/2.5.0/gems/travis-1.8.10/bin/travis encrypt DOCKER_PASSWORD=password --add
 
 Build server 
 
