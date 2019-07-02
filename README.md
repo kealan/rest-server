@@ -7,7 +7,7 @@ It is a template upon which more complicated services can be developed.
 
 # Quick start
 
-Install travis cli
+Install travis cli and sign
 
 ```
 sudo apt-get install -y ruby ruby-dev
@@ -15,12 +15,20 @@ sudo gem install travis
 gem install travis
 cd /var/lib/gems/
 sudo chmod -R 755 ./
+/var/lib/gems/2.5.0/gems/travis-1.8.10/bin/travis encrypt DOCKER_USERNAME=username --add
+```
+
+or
+
+```
+sudo snap install travis
+/snap/bin/travis encrypt DOCKER_USERNAME=username --add
 ```
 
 Add your secure environmental values.
 
-    /var/lib/gems/2.5.0/gems/travis-1.8.10/bin/travis encrypt DOCKER_USERNAME=username --add
-    /var/lib/gems/2.5.0/gems/travis-1.8.10/bin/travis encrypt DOCKER_PASSWORD=password --add
+    /snap/bin/travis encrypt DOCKER_USERNAME=username --add
+    /snap/bin/travis encrypt DOCKER_PASSWORD=password --add
 
 Build server 
 
