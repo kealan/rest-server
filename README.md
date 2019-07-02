@@ -7,7 +7,7 @@ It is a template upon which more complicated services can be developed.
 
 # Quick start
 
-Install travis cli
+Install travis cli add
 
 ```
 sudo apt-get install -y ruby ruby-dev
