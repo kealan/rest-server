@@ -6,6 +6,8 @@ services:
 - docker
 jobs:
   include:
+  - stage: sonar
+    - sonar-scanner  
   - stage: build docker image
     script:
     - export VERSION=$(cat VERSION)
@@ -20,8 +22,6 @@ jobs:
     - export VERSION=$(cat VERSION)
     - docker-compose --version
     - "./test.sh"
-  - stage: sonar
-    - sonar-scanner
 env:
   global:
   - secure: n543+YxOGgl0oAgWl4aJNQIAMplolW665KeTWhwhcE21BVSYgyJ3HZspcK7pFzLcmv7pp1mSMiAnsddHvKZCuV+AGO0HkinvHL+0nadDtz2+cxerDItmF8oknHAkxXEdwbryVo+Lu0flx2pkbOp4WQpPrP+rD/149I1xf8MR/Gj3x+bok5TtFcdJjzbL7EO+qt5EHVn68JU29XzSGxwPnPGeunjrtbRmMjroyLnzbywASLeTvRtjaB8Wj0sMPe8idFWId3WfKyjVjsyDdx483AdVNDuMZYxXbdrkw8LJFigGAGhmXqmnecQM9ORZfj/JK1nU3ShlOlMUVTkjdRHZAPJNvtWZYymg0NR3sNnDiqc9CROMjg3j9CmWKPabgNUAfzddpkAEDSDPCyp9SURQsHUegnaxU1wRS5zSH+HrZHwX+GeoRULejSgDYjO/uB56QZpUXFRGhHluHxsuoBJKJRWXlzCuoHdi8MvmwQaGzdN3VBpRkgCiKOxmd6t+r/fdkxf+MHs7PPAHUx2XANKmDQj8/McsVGlT2YCU/ht26YyBcr2jcphGCbOk3HokkfzKdeww+NZSOzBDOoZkwn9wyScOPvdk359XOo1julX7Xiqj199SmKCQGUX4e3MnTO671mEIDmserONf+QgHvjf6BSEzQykoZO4S8kkeheGE/B4=
