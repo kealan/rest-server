@@ -1,6 +1,6 @@
 # Simple RESTful web server
 
-[![Build Status](https://travis-ci.org/kealan/rest-server.svg?branch=master)](https://travis-ci.org/kealan/rest-server)
+[![Build Status](https://travis-ci.com/kealan/rest-server.svg?branch=master)](https://travis-ci.com/kealan/rest-server)
 
 This is a very simple web server that can parse JSON and respond with JSON.
 It is a template upon which more complicated services can be developed.
