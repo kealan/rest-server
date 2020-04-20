@@ -7,7 +7,8 @@ It is a template upon which more complicated services can be developed.
 
 # Quick start
 
-Install travis cli 
+Install travis cli
+
 
 ```
 sudo apt-get install -y ruby ruby-dev
@@ -25,10 +26,26 @@ sudo snap install travis
 /snap/bin/travis encrypt DOCKER_USERNAME=username --add
 ```
 
+```
+$ travis login --pro
+Outdated CLI version, run `gem install travis`.
+We need your GitHub login to identify you.
+This information will not be sent to Travis CI, only to api.github.com.
+The password will not be displayed.
+
+Try running with --github-token or --auto if you don't want to enter your password anyway.
+
+Username: kealan
+Password for kealan: **********************
+Two-factor authentication code for kealan: 390134
+```
+
 Add your secure environmental values.
 
-    /snap/bin/travis encrypt DOCKER_USERNAME=username --add
-    /snap/bin/travis encrypt DOCKER_PASSWORD=password --add
+```
+travis encrypt DOCKER_USERNAME=username --com --add
+travis encrypt DOCKER_PASSWORD=password --com --add
+```
 
 Build server 
 
