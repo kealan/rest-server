@@ -9,7 +9,6 @@ It is a template upon which more complicated services can be developed.
 
 Install travis cli
 
-
 ```
 sudo apt-get install -y ruby ruby-dev
 sudo gem install travis
